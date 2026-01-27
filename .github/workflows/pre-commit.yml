@@ -2,25 +2,22 @@ name: Precommit
 
 on:
   workflow_call:
-
-env:
-  PROJECT_NAME: DAPR
-  PYTHON_VERSION: 3.11
-  PACKAGE_NAME: test_central_templates
-  AZURE_CLI_VERSION: 2.64.0
-  AML_ENVIRONMENT: test_central_templates
-  RG_NAME: default_resource_group
-  WS_NAME: default_workspace
+    inputs:
+      python_version:
+        description: "Python version to use"
+        required: true
+        type: string
 
 jobs:
   Precommit:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v4
 
       - uses: actions/setup-python@v5
         with:
-          python-version: ${{ env.PYTHON_VERSION }}
+          python-version: ${{ inputs.python_version }}
 
       - run: |
           python -m pip install --upgrade pip
