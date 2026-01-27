@@ -1,0 +1,23 @@
+
+parameters:
+- name: python_version
+  type: string
+- name: poetry_version
+  type: string
+
+steps:
+  - task: UsePythonVersion@0
+    inputs:
+      versionSpec: '${{ parameters.python_version }}'
+    displayName: 'Use Python ${{ parameters.python_version }}'
+
+  - bash: |
+        python -m pip install --upgrade pip
+        python -m pip install poetry==${{ parameters.poetry_version }}
+    displayName: 'Install poetry ${{ parameters.poetry_version }}'
+
+  - script: poetry install --only precommit
+    displayName: 'Install precommit dependencies with poetry'
+
+  - script: poetry run pre-commit run --all-files --show-diff-on-failure
+    displayName: 'Run pre-commit'
