@@ -20,5 +20,5 @@ steps:
   - script: poetry install
     displayName: 'Install docs dependencies with poetry'
 
-  - script: poetry run python /devops_pipelines/scripts/echo.py
+  - script: poetry run python $(Agent.BuildDirectory)/s/devops_pipelines/scripts/
     displayName: 'Test'
