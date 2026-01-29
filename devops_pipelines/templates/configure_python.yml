@@ -10,15 +10,12 @@ parameters:
   type: string
   
 steps:
-  - template: /devops_pipelines/templates/configure_python.yml
+  - task: UsePythonVersion@0
+    inputs:
+      versionSpec: '${{ parameters.python_version }}'
+    displayName: 'Use Python ${{ parameters.python_version }}'
+  - template: configure_poetry.yml
     parameters:
-      python_version: '${{ parameters.python_version }}'
       poetry_version: '${{ parameters.poetry_version }}'
-      pat_username: '${{ parameters.pat_username }}'
-      pat: '${{ parameters.pat }}'
-
-  - script: poetry install
-    displayName: 'Install docs dependencies with poetry'
-
-  - script: poetry run python run /devops_pipelines/scripts/echo.oy
-    displayName: 'Test'
+      username: '${{ parameters.pat_username }}'
+      personalAccessToken: '${{ parameters.pat }}'
