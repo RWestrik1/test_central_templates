@@ -18,7 +18,7 @@ steps:
       pat: '${{ parameters.pat }}'
 
   - script: poetry install
-    displayName: 'Install docs dependencies with poetry'
+    displayName: 'Install dependencies with poetry'
 
   - script: poetry run python /devops_pipelines/scripts/echo.py
     displayName: 'Test'
