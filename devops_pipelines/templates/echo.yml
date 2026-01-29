@@ -20,5 +20,7 @@ steps:
   - script: poetry install
     displayName: 'Install docs dependencies with poetry'
 
+  - checkout: self
+
   - script: poetry run python /devops_pipelines/scripts/echo.py
     displayName: 'Test'
